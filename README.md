@@ -13,8 +13,6 @@ A simple online footwear store built as a coursework project. Users can log in, 
 ![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=flat&logo=chartdotjs&logoColor=white)
 ![Boxicons](https://img.shields.io/badge/Boxicons-3B82F6?style=flat&logo=boxicons&logoColor=white)
 
-All libraries are loaded from CDN so there's nothing to install.
-
 ## Features
 
 - Login & Register pages (hardcoded login for demo)
