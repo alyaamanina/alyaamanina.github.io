@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FootwearHub - Register Page">
+  <meta name="author" content="FootwearHub">
+  <title>Register - FootwearHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 bg-cover bg-center relative"
+      style="background-image: url('images/background.jpg');">
+
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+
+    <div class="text-center mb-6">
+      <img src="images/logo.png" alt="FootwearHub logo" class="h-20 w-20 mx-auto">
+      <h1 class="text-3xl font-bold text-gray-800 mt-2">Create Account</h1>
+      <p class="text-gray-500 text-sm mt-1">Join FootwearHub today</p>
+    </div>
+
+    <div id="msgBox" class="hidden px-4 py-2 rounded mb-4 text-sm"></div>
+
+    <form id="registerForm" onsubmit="return doRegister(event)">
+
+      <div class="mb-4">
+        <label for="fullname" class="block text-gray-700 text-sm font-semibold mb-2">Full Name</label>
+        <input type="text" id="fullname" required
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+               placeholder="John Doe">
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">Email</label>
+        <input type="email" id="email" required
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+               placeholder="john@email.com">
+      </div>
+
+      <div class="mb-4">
+        <label for="newUsername" class="block text-gray-700 text-sm font-semibold mb-2">Username</label>
+        <input type="text" id="newUsername" required minlength="3"
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+               placeholder="Choose a username">
+      </div>
+
+      <div class="mb-4">
+        <label for="newPassword" class="block text-gray-700 text-sm font-semibold mb-2">Password</label>
+        <input type="password" id="newPassword" required minlength="6"
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+               placeholder="At least 6 characters">
+      </div>
+
+      <div class="mb-6">
+        <label for="confirmPassword" class="block text-gray-700 text-sm font-semibold mb-2">Confirm Password</label>
+        <input type="password" id="confirmPassword" required minlength="6"
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+               placeholder="Re-type your password">
+      </div>
+
+      <button type="submit"
+              class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 rounded-lg transition">
+        Register
+      </button>
+    </form>
+
+    <p class="text-center text-sm text-gray-600 mt-4">
+      Already have an account?
+      <a href="index.html" class="text-purple-600 hover:underline font-semibold">Login here</a>
+    </p>
+
+  </div>
+
+  <script>
+    function doRegister(e) {
+      e.preventDefault();
+      var pass1 = document.getElementById("newPassword").value;
+      var pass2 = document.getElementById("confirmPassword").value;
+      var box = document.getElementById("msgBox");
+
+      if (pass1 !== pass2) {
+        box.className = "bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm";
+        box.textContent = "Passwords do not match. Please try again.";
+        box.classList.remove("hidden");
+        return false;
+      }
+
+      box.className = "bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4 text-sm";
+      box.textContent = "Registration successful! Please login with: admin / admin123";
+      box.classList.remove("hidden");
+
+      document.getElementById("registerForm").reset();
+      return false;
+    }
+  </script>
+
+</body>
+</html>

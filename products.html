@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FootwearHub Products - browse our full collection of sneakers, running shoes, formal wear, boots and sandals">
+  <meta name="author" content="FootwearHub">
+  <title>Products - FootwearHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/auth.js"></script>
+  <script>checkLogin();</script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+
+        <a href="dashboard.html" class="flex items-center">
+          <img src="images/logo.png" alt="FootwearHub logo" class="h-10 w-10 mr-2">
+          <span class="text-xl font-bold text-gray-800">FootwearHub</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-5">
+          <a href="dashboard.html" class="text-gray-700 hover:text-blue-600">Home</a>
+          <a href="products.html" class="text-blue-600 font-semibold">Products</a>
+          <a href="orders.html" class="text-gray-700 hover:text-blue-600">Orders</a>
+          <a href="customers.html" class="text-gray-700 hover:text-blue-600">Customers</a>
+          <a href="reports.html" class="text-gray-700 hover:text-blue-600">Reports</a>
+
+          <a href="cart.html" class="relative text-gray-700 hover:text-blue-600">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+
+          <span id="navUsername" class="text-sm text-gray-500"></span>
+          <button onclick="logoutUser()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Logout</button>
+        </div>
+
+        <div class="md:hidden flex items-center space-x-3">
+          <a href="cart.html" class="relative text-gray-700">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+          <button onclick="toggleMenu()" class="text-gray-700">
+            <i class="bx bx-menu text-3xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+        <a href="dashboard.html" class="block py-2 text-gray-700">Home</a>
+        <a href="products.html" class="block py-2 text-blue-600 font-semibold">Products</a>
+        <a href="orders.html" class="block py-2 text-gray-700">Orders</a>
+        <a href="customers.html" class="block py-2 text-gray-700">Customers</a>
+        <a href="reports.html" class="block py-2 text-gray-700">Reports</a>
+        <button onclick="logoutUser()" class="w-full bg-red-500 text-white py-2 rounded">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+    <div class="mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800">All Footwear</h1>
+        <p class="text-gray-500">Browse our full collection of shoes.</p>
+      </div>
+      <div>
+        <label for="filterCategory" class="text-sm text-gray-600 mr-2">Filter:</label>
+        <select id="filterCategory" onchange="showProducts()"
+                class="border border-gray-300 rounded px-3 py-1 text-sm">
+          <option value="All">All Categories</option>
+          <option value="Sneakers">Sneakers</option>
+          <option value="Running">Running</option>
+          <option value="Formal">Formal</option>
+          <option value="Boots">Boots</option>
+          <option value="Sandals">Sandals</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+
+  </main>
+
+  <footer class="bg-gray-800 text-white mt-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div>
+          <h3 class="font-bold mb-2 text-lg flex items-center gap-2">
+            <img src="images/logo.png" alt="FootwearHub logo" class="h-8 w-8"> FootwearHub
+          </h3>
+          <p class="text-gray-400">Your one-stop hub for premium footwear.</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Quick Links</h3>
+          <ul class="text-gray-400 space-y-1">
+            <li><a href="dashboard.html" class="hover:text-white">Home</a></li>
+            <li><a href="products.html" class="hover:text-white">Products</a></li>
+            <li><a href="orders.html" class="hover:text-white">Orders</a></li>
+            <li><a href="reports.html" class="hover:text-white">Reports</a></li>
+            <li><a href="cart.html" class="hover:text-white">My Cart</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Contact</h3>
+          <p class="text-gray-400">support@footwearhub.com</p>
+          <p class="text-gray-400">+60 12-345 6789</p>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-4 pt-4 text-center text-gray-500 text-xs">
+        © 2026 FootwearHub. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    function showProducts() {
+      var grid = document.getElementById("productGrid");
+      var filter = document.getElementById("filterCategory").value;
+      var html = "";
+
+      for (var i = 0; i < products.length; i++) {
+        var p = products[i];
+
+        if (filter !== "All" && p.category !== filter) {
+          continue;
+        }
+
+        var stockColor = "bg-green-100 text-green-700";
+        var stockText = "In Stock";
+        if (p.stock < 20) {
+          stockColor = "bg-yellow-100 text-yellow-700";
+          stockText = "Low Stock";
+        }
+
+        html += "<div class='product-card bg-white rounded-lg shadow overflow-hidden flex flex-col'>";
+        html += "<img src='" + p.image + "' onerror=\"this.src='" + noImg + "'\" alt='" + p.name + "' class='w-full h-44 object-cover bg-gray-100'>";
+        html += "<div class='p-4 flex flex-col flex-1'>";
+        html += "<div class='flex justify-between items-start mb-1'>";
+        html += "<p class='text-xs text-gray-500 uppercase'>" + p.category + "</p>";
+        html += "<span class='text-xs px-2 py-0.5 rounded " + stockColor + "'>" + stockText + "</span>";
+        html += "</div>";
+        html += "<h3 class='font-bold text-gray-800 mb-2'>" + p.name + "</h3>";
+        html += "<p class='text-xl font-bold text-blue-600 mb-3'>RM " + p.price.toFixed(2) + "</p>";
+        html += "<button onclick='addToCart(" + p.id + ")' ";
+        html += "class='mt-auto bg-blue-600 hover:bg-blue-700 text-white py-2 rounded flex items-center justify-center gap-2 text-sm font-semibold transition'>";
+        html += "<i class='bx bxs-cart-add text-lg'></i> Add to Cart</button>";
+        html += "</div>";
+        html += "</div>";
+      }
+
+      if (html === "") {
+        html = "<p class='col-span-full text-center text-gray-500 py-8'>No products found.</p>";
+      }
+
+      grid.innerHTML = html;
+    }
+
+    function applyUrlFilter() {
+      var query = window.location.search;
+      if (query.indexOf("cat=") !== -1) {
+        var cat = query.split("cat=")[1];
+        var select = document.getElementById("filterCategory");
+        for (var i = 0; i < select.options.length; i++) {
+          if (select.options[i].value === cat) {
+            select.value = cat;
+            break;
+          }
+        }
+      }
+    }
+
+    applyUrlFilter();
+    showProducts();
+  </script>
+
+</body>
+</html>

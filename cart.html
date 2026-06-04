@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FootwearHub Shopping Cart - review your items before checkout">
+  <meta name="author" content="FootwearHub">
+  <title>My Cart - FootwearHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/auth.js"></script>
+  <script>checkLogin();</script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+
+        <a href="dashboard.html" class="flex items-center">
+          <img src="images/logo.png" alt="FootwearHub logo" class="h-10 w-10 mr-2">
+          <span class="text-xl font-bold text-gray-800">FootwearHub</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-5">
+          <a href="dashboard.html" class="text-gray-700 hover:text-blue-600">Home</a>
+          <a href="products.html" class="text-gray-700 hover:text-blue-600">Products</a>
+          <a href="orders.html" class="text-gray-700 hover:text-blue-600">Orders</a>
+          <a href="customers.html" class="text-gray-700 hover:text-blue-600">Customers</a>
+          <a href="reports.html" class="text-gray-700 hover:text-blue-600">Reports</a>
+
+          <a href="cart.html" class="relative text-blue-600 font-semibold">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+
+          <span id="navUsername" class="text-sm text-gray-500"></span>
+          <button onclick="logoutUser()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Logout</button>
+        </div>
+
+        <div class="md:hidden flex items-center space-x-3">
+          <a href="cart.html" class="relative text-blue-600">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+          <button onclick="toggleMenu()" class="text-gray-700">
+            <i class="bx bx-menu text-3xl"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+        <a href="dashboard.html" class="block py-2 text-gray-700">Home</a>
+        <a href="products.html" class="block py-2 text-gray-700">Products</a>
+        <a href="orders.html" class="block py-2 text-gray-700">Orders</a>
+        <a href="customers.html" class="block py-2 text-gray-700">Customers</a>
+        <a href="reports.html" class="block py-2 text-gray-700">Reports</a>
+        <button onclick="logoutUser()" class="w-full bg-red-500 text-white py-2 rounded">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+    <h1 class="text-3xl font-bold text-gray-800 mb-6"><i class="bx bxs-shopping-bag text-blue-600"></i> My Shopping Cart</h1>
+
+    <div id="cartArea"></div>
+
+  </main>
+
+  <footer class="bg-gray-800 text-white mt-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div>
+          <h3 class="font-bold mb-2 text-lg flex items-center gap-2">
+            <img src="images/logo.png" alt="FootwearHub logo" class="h-8 w-8"> FootwearHub
+          </h3>
+          <p class="text-gray-400">Your one-stop hub for premium footwear.</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Quick Links</h3>
+          <ul class="text-gray-400 space-y-1">
+            <li><a href="dashboard.html" class="hover:text-white">Home</a></li>
+            <li><a href="products.html" class="hover:text-white">Products</a></li>
+            <li><a href="orders.html" class="hover:text-white">Orders</a></li>
+            <li><a href="reports.html" class="hover:text-white">Reports</a></li>
+            <li><a href="cart.html" class="hover:text-white">My Cart</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Contact</h3>
+          <p class="text-gray-400">support@footwearhub.com</p>
+          <p class="text-gray-400">+60 12-345 6789</p>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-4 pt-4 text-center text-gray-500 text-xs">
+        © 2026 FootwearHub. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    function showCart() {
+      var area = document.getElementById("cartArea");
+      var cart = getCart();
+
+      if (cart.length === 0) {
+        area.innerHTML =
+          "<div class='bg-white rounded-lg shadow p-10 text-center'>" +
+          "<i class='bx bx-cart text-7xl text-gray-300'></i>" +
+          "<h2 class='text-xl font-bold text-gray-800 mb-2 mt-2'>Your cart is empty</h2>" +
+          "<p class='text-gray-500 mb-4'>Looks like you haven't picked any shoes yet.</p>" +
+          "<a href='products.html' class='inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded font-semibold'>Start Shopping</a>" +
+          "</div>";
+        return;
+      }
+
+      var html = "<div class='grid grid-cols-1 lg:grid-cols-3 gap-6'>";
+
+      html += "<div class='lg:col-span-2 bg-white rounded-lg shadow p-4'>";
+      for (var i = 0; i < cart.length; i++) {
+        var item = cart[i];
+        var subtotal = item.price * item.qty;
+
+        html += "<div class='flex items-center gap-4 py-4 border-b last:border-b-0'>";
+        html += "<img src='" + item.image + "' onerror=\"this.src='" + noImg + "'\" alt='" + item.name + "' class='w-20 h-20 object-cover rounded bg-gray-100'>";
+        html += "<div class='flex-1'>";
+        html += "<h3 class='font-bold text-gray-800'>" + item.name + "</h3>";
+        html += "<p class='text-sm text-gray-500'>RM " + item.price.toFixed(2) + " each</p>";
+        html += "<div class='flex items-center gap-2 mt-2'>";
+        html += "<button onclick='changeQty(" + item.id + ", -1); showCart();' class='bg-gray-200 hover:bg-gray-300 w-7 h-7 rounded font-bold'>-</button>";
+        html += "<span class='w-8 text-center font-semibold'>" + item.qty + "</span>";
+        html += "<button onclick='changeQty(" + item.id + ", 1); showCart();' class='bg-gray-200 hover:bg-gray-300 w-7 h-7 rounded font-bold'>+</button>";
+        html += "</div>";
+        html += "</div>";
+        html += "<div class='text-right'>";
+        html += "<p class='font-bold text-blue-600'>RM " + subtotal.toFixed(2) + "</p>";
+        html += "<button onclick='removeFromCart(" + item.id + "); showCart();' class='text-xs text-red-500 hover:underline mt-2'>Remove</button>";
+        html += "</div>";
+        html += "</div>";
+      }
+      html += "</div>";
+
+      var total = totalPrice();
+      var shipping = total >= 100 ? 0 : 10;
+      var grand = total + shipping;
+
+      html += "<div class='bg-white rounded-lg shadow p-6 h-fit'>";
+      html += "<h2 class='text-lg font-bold text-gray-800 mb-4'>Order Summary</h2>";
+      html += "<div class='flex justify-between text-sm mb-2'><span>Subtotal</span><span>RM " + total.toFixed(2) + "</span></div>";
+      html += "<div class='flex justify-between text-sm mb-2'><span>Shipping</span><span>" + (shipping === 0 ? "<span class='text-green-600 font-semibold'>FREE</span>" : "RM " + shipping.toFixed(2)) + "</span></div>";
+      html += "<div class='border-t my-3'></div>";
+      html += "<div class='flex justify-between text-lg font-bold mb-4'><span>Total</span><span class='text-blue-600'>RM " + grand.toFixed(2) + "</span></div>";
+      html += "<button onclick='doCheckout()' class='w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold mb-2'>Checkout</button>";
+      html += "<button onclick='if(confirm(\"Clear the whole cart?\")){clearCart(); showCart();}' class='w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 rounded text-sm'>Clear Cart</button>";
+      html += "</div>";
+
+      html += "</div>";
+
+      area.innerHTML = html;
+    }
+
+    function doCheckout() {
+      alert("Order placed successfully!\n\nThank you for shopping with FootwearHub.");
+      clearCart();
+      showCart();
+    }
+
+    showCart();
+  </script>
+
+</body>
+</html>

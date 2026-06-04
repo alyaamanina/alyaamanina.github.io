@@ -1,0 +1,36 @@
+/* small custom styles - most styling done with Tailwind */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* lift effect when hovering a product card */
+.product-card:hover {
+  transform: translateY(-4px);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* order status colors */
+.status-pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-shipped {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-delivered {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-cancelled {
+  background-color: #fee2e2;
+  color: #991b1b;
+}

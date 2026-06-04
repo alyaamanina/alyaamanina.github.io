@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FootwearHub - Step into style. Browse featured shoes, sneakers, boots and sandals.">
+  <meta name="author" content="FootwearHub">
+  <title>Home - FootwearHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/auth.js"></script>
+  <script>checkLogin();</script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Top navigation bar -->
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+
+        <a href="dashboard.html" class="flex items-center">
+          <img src="images/logo.png" alt="FootwearHub logo" class="h-10 w-10 mr-2">
+          <span class="text-xl font-bold text-gray-800">FootwearHub</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-5">
+          <a href="dashboard.html" class="text-blue-600 font-semibold">Home</a>
+          <a href="products.html" class="text-gray-700 hover:text-blue-600">Products</a>
+          <a href="orders.html" class="text-gray-700 hover:text-blue-600">Orders</a>
+          <a href="customers.html" class="text-gray-700 hover:text-blue-600">Customers</a>
+          <a href="reports.html" class="text-gray-700 hover:text-blue-600">Reports</a>
+
+          <a href="cart.html" class="relative text-gray-700 hover:text-blue-600">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+
+          <span id="navUsername" class="text-sm text-gray-500"></span>
+          <button onclick="logoutUser()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Logout</button>
+        </div>
+
+        <div class="md:hidden flex items-center space-x-3">
+          <a href="cart.html" class="relative text-gray-700">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+          <button onclick="toggleMenu()" class="text-gray-700">
+            <i class="bx bx-menu text-3xl"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+        <a href="dashboard.html" class="block py-2 text-blue-600 font-semibold">Home</a>
+        <a href="products.html" class="block py-2 text-gray-700">Products</a>
+        <a href="orders.html" class="block py-2 text-gray-700">Orders</a>
+        <a href="customers.html" class="block py-2 text-gray-700">Customers</a>
+        <a href="reports.html" class="block py-2 text-gray-700">Reports</a>
+        <button onclick="logoutUser()" class="w-full bg-red-500 text-white py-2 rounded">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero banner -->
+  <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 flex flex-col md:flex-row items-center justify-between">
+      <div class="md:w-1/2 mb-8 md:mb-0">
+        <p class="text-yellow-300 font-semibold mb-2"><i class="bx bxs-hand-right"></i> Welcome, <span id="heroUsername">Shopper</span>!</p>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+          Step Into <br>Your Next Pair.
+        </h1>
+        <p class="text-lg text-blue-100 mb-6">
+          Premium sneakers, running shoes, boots, formal wear and sandals — all in one hub.
+        </p>
+        <a href="products.html"
+           class="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-yellow-300 hover:text-gray-900 transition">
+          Shop All Footwear <i class="bx bx-right-arrow-alt align-middle"></i>
+        </a>
+      </div>
+      <div class="md:w-1/2 flex justify-center">
+        <img src="images/logo.png" alt="FootwearHub logo" class="h-56 w-56 md:h-72 md:w-72 drop-shadow-2xl">
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Shop by Category</h2>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <a href="products.html?cat=Sneakers" class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <i class="bx bx-walk text-4xl text-blue-600"></i>
+        <p class="font-semibold text-gray-800 mt-2">Sneakers</p>
+      </a>
+      <a href="products.html?cat=Running" class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <i class="bx bx-run text-4xl text-green-600"></i>
+        <p class="font-semibold text-gray-800 mt-2">Running</p>
+      </a>
+      <a href="products.html?cat=Formal" class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <i class="bx bxs-briefcase text-4xl text-gray-800"></i>
+        <p class="font-semibold text-gray-800 mt-2">Formal</p>
+      </a>
+      <a href="products.html?cat=Boots" class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <i class="bx bxs-leaf text-4xl text-amber-700"></i>
+        <p class="font-semibold text-gray-800 mt-2">Boots</p>
+      </a>
+      <a href="products.html?cat=Sandals" class="bg-white p-6 rounded-lg shadow text-center hover:shadow-lg transition">
+        <i class="bx bxs-sun text-4xl text-yellow-500"></i>
+        <p class="font-semibold text-gray-800 mt-2">Sandals</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Featured Products</h2>
+      <a href="products.html" class="text-sm text-blue-600 hover:underline">View All →</a>
+    </div>
+
+    <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+  </section>
+
+  <!-- Quick chart preview - full analytics on Reports page -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-gray-800"><i class="bx bxs-hot text-orange-500"></i> Top Sellers This Week</h2>
+          <p class="text-sm text-gray-500">Most popular shoes by pairs sold</p>
+        </div>
+        <a href="reports.html" class="text-sm text-blue-600 hover:underline">Full Reports →</a>
+      </div>
+      <div class="relative h-56 md:h-64">
+        <canvas id="topChart"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-yellow-400 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="text-xl font-bold text-gray-900"><i class="bx bxs-truck"></i> Free Shipping on orders over RM 100</h3>
+        <p class="text-gray-800 text-sm">Limited time offer. Hurry up!</p>
+      </div>
+      <a href="products.html" class="bg-gray-900 text-white px-5 py-2 rounded font-semibold hover:bg-gray-700 transition">
+        Shop Now
+      </a>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 text-white mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div>
+          <h3 class="font-bold mb-2 text-lg flex items-center gap-2">
+            <img src="images/logo.png" alt="FootwearHub logo" class="h-8 w-8"> FootwearHub
+          </h3>
+          <p class="text-gray-400">Your one-stop hub for premium footwear.</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Quick Links</h3>
+          <ul class="text-gray-400 space-y-1">
+            <li><a href="dashboard.html" class="hover:text-white">Home</a></li>
+            <li><a href="products.html" class="hover:text-white">Products</a></li>
+            <li><a href="orders.html" class="hover:text-white">Orders</a></li>
+            <li><a href="reports.html" class="hover:text-white">Reports</a></li>
+            <li><a href="cart.html" class="hover:text-white">My Cart</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Contact</h3>
+          <p class="text-gray-400">support@footwearhub.com</p>
+          <p class="text-gray-400">+60 12-345 6789</p>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-4 pt-4 text-center text-gray-500 text-xs">
+        © 2026 FootwearHub. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    document.getElementById("heroUsername").textContent = getUsername();
+
+    // Loop through products and build featured cards
+    var grid = document.getElementById("featuredGrid");
+    var html = "";
+    for (var i = 0; i < 4 && i < products.length; i++) {
+      var p = products[i];
+      html += "<div class='product-card bg-white rounded-lg shadow overflow-hidden flex flex-col'>";
+      html += "<img src='" + p.image + "' onerror=\"this.src='" + noImg + "'\" alt='" + p.name + "' class='w-full h-44 object-cover bg-gray-100'>";
+      html += "<div class='p-4 flex flex-col flex-1'>";
+      html += "<p class='text-xs text-gray-500 uppercase'>" + p.category + "</p>";
+      html += "<h3 class='font-bold text-gray-800 mt-1 mb-2'>" + p.name + "</h3>";
+      html += "<p class='text-xl font-bold text-blue-600 mb-3'>RM " + p.price.toFixed(2) + "</p>";
+      html += "<button onclick='addToCart(" + p.id + ")' ";
+      html += "class='mt-auto bg-blue-600 hover:bg-blue-700 text-white py-2 rounded flex items-center justify-center gap-2 text-sm font-semibold transition'>";
+      html += "<i class='bx bxs-cart-add text-lg'></i> Add to Cart</button>";
+      html += "</div>";
+      html += "</div>";
+    }
+    grid.innerHTML = html;
+
+    // Build the small Top Sellers chart
+    var ctx = document.getElementById("topChart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["Air Runner Pro", "Urban Sneaker X", "Marathon Lite", "Retro High-Top", "Classic Oxford"],
+        datasets: [{
+          label: "Pairs Sold",
+          data: [92, 78, 65, 54, 43],
+          backgroundColor: ["#3b82f6", "#8b5cf6", "#10b981", "#ef4444", "#1f2937"],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } }
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FootwearHub Reports - sales analytics, category performance and best sellers">
+  <meta name="author" content="FootwearHub">
+  <title>Reports - FootwearHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/auth.js"></script>
+  <script>checkLogin();</script>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <nav class="bg-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+
+        <a href="dashboard.html" class="flex items-center">
+          <img src="images/logo.png" alt="FootwearHub logo" class="h-10 w-10 mr-2">
+          <span class="text-xl font-bold text-gray-800">FootwearHub</span>
+        </a>
+
+        <div class="hidden md:flex items-center space-x-5">
+          <a href="dashboard.html" class="text-gray-700 hover:text-blue-600">Home</a>
+          <a href="products.html" class="text-gray-700 hover:text-blue-600">Products</a>
+          <a href="orders.html" class="text-gray-700 hover:text-blue-600">Orders</a>
+          <a href="customers.html" class="text-gray-700 hover:text-blue-600">Customers</a>
+          <a href="reports.html" class="text-blue-600 font-semibold">Reports</a>
+
+          <a href="cart.html" class="relative text-gray-700 hover:text-blue-600">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+
+          <span id="navUsername" class="text-sm text-gray-500"></span>
+          <button onclick="logoutUser()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Logout</button>
+        </div>
+
+        <div class="md:hidden flex items-center space-x-3">
+          <a href="cart.html" class="relative text-gray-700">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+          <button onclick="toggleMenu()" class="text-gray-700">
+            <i class="bx bx-menu text-3xl"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+        <a href="dashboard.html" class="block py-2 text-gray-700">Home</a>
+        <a href="products.html" class="block py-2 text-gray-700">Products</a>
+        <a href="orders.html" class="block py-2 text-gray-700">Orders</a>
+        <a href="customers.html" class="block py-2 text-gray-700">Customers</a>
+        <a href="reports.html" class="block py-2 text-blue-600 font-semibold">Reports</a>
+        <button onclick="logoutUser()" class="w-full bg-red-500 text-white py-2 rounded">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-800"><i class="bx bxs-bar-chart-alt-2 text-blue-600"></i> Reports & Analytics</h1>
+      <p class="text-gray-500">Live sales data and shop performance</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+
+      <div class="bg-white rounded-lg shadow p-5 border-l-4 border-blue-500">
+        <p class="text-sm text-gray-500">Total Sales</p>
+        <p class="text-2xl font-bold text-gray-800 mt-1">RM 35,700</p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-5 border-l-4 border-purple-500">
+        <p class="text-sm text-gray-500">Total Orders</p>
+        <p class="text-2xl font-bold text-gray-800 mt-1" id="statOrders">0</p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-5 border-l-4 border-green-500">
+        <p class="text-sm text-gray-500">Total Products</p>
+        <p class="text-2xl font-bold text-gray-800 mt-1" id="statProducts">0</p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-5 border-l-4 border-orange-500">
+        <p class="text-sm text-gray-500">Total Customers</p>
+        <p class="text-2xl font-bold text-gray-800 mt-1" id="statCustomers">0</p>
+      </div>
+
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6 mb-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="bx bx-line-chart text-blue-600"></i> Monthly Sales (RM)</h2>
+      <p class="text-sm text-gray-500 mb-4">Total revenue for the last 6 months</p>
+      <div class="relative h-72 md:h-80">
+        <canvas id="salesChart"></canvas>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="bx bxs-pie-chart-alt-2 text-purple-600"></i> Sales by Category</h2>
+        <p class="text-sm text-gray-500 mb-4">Which footwear type sells the most</p>
+        <div class="relative h-72">
+          <canvas id="catChart"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6">
+        <h2 class="text-lg font-bold text-gray-800 mb-1"><i class="bx bxs-hot text-orange-500"></i> Best Sellers This Week</h2>
+        <p class="text-sm text-gray-500 mb-4">Top 5 shoes by pairs sold</p>
+        <div class="relative h-72">
+          <canvas id="trendingChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="bg-gray-800 text-white mt-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div>
+          <h3 class="font-bold mb-2 text-lg flex items-center gap-2">
+            <img src="images/logo.png" alt="FootwearHub logo" class="h-8 w-8"> FootwearHub
+          </h3>
+          <p class="text-gray-400">Your one-stop hub for premium footwear.</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Quick Links</h3>
+          <ul class="text-gray-400 space-y-1">
+            <li><a href="dashboard.html" class="hover:text-white">Home</a></li>
+            <li><a href="products.html" class="hover:text-white">Products</a></li>
+            <li><a href="orders.html" class="hover:text-white">Orders</a></li>
+            <li><a href="reports.html" class="hover:text-white">Reports</a></li>
+            <li><a href="cart.html" class="hover:text-white">My Cart</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Contact</h3>
+          <p class="text-gray-400">support@footwearhub.com</p>
+          <p class="text-gray-400">+60 12-345 6789</p>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-4 pt-4 text-center text-gray-500 text-xs">
+        © 2026 FootwearHub. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    document.getElementById("statOrders").textContent = orders.length;
+    document.getElementById("statProducts").textContent = products.length;
+    document.getElementById("statCustomers").textContent = customers.length;
+
+    var ctx1 = document.getElementById("salesChart").getContext("2d");
+    new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: salesData.labels,
+        datasets: [{
+          label: "Sales (RM)",
+          data: salesData.values,
+          borderColor: "#3b82f6",
+          backgroundColor: "rgba(59, 130, 246, 0.2)",
+          borderWidth: 3,
+          tension: 0.3,
+          fill: true,
+          pointRadius: 5,
+          pointBackgroundColor: "#3b82f6"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } }
+      }
+    });
+
+    var ctx2 = document.getElementById("catChart").getContext("2d");
+    new Chart(ctx2, {
+      type: "doughnut",
+      data: {
+        labels: catData.labels,
+        datasets: [{
+          data: catData.values,
+          backgroundColor: ["#10b981", "#3b82f6", "#1f2937", "#f59e0b", "#facc15"],
+          borderWidth: 2,
+          borderColor: "#ffffff"
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: "bottom" } }
+      }
+    });
+
+    var ctx3 = document.getElementById("trendingChart").getContext("2d");
+    new Chart(ctx3, {
+      type: "bar",
+      data: {
+        labels: ["Air Runner Pro", "Urban Sneaker X", "Marathon Lite", "Retro High-Top", "Classic Oxford"],
+        datasets: [{
+          label: "Pairs Sold This Week",
+          data: [92, 78, 65, 54, 43],
+          backgroundColor: ["#3b82f6", "#8b5cf6", "#10b981", "#ef4444", "#1f2937"],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        indexAxis: "y",
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } }
+      }
+    });
+  </script>
+
+</body>
+</html>

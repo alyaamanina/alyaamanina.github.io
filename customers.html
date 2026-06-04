@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FootwearHub Customers - list of registered customers">
+  <meta name="author" content="FootwearHub">
+  <title>Customers - FootwearHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/auth.js"></script>
+  <script>checkLogin();</script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <nav class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="dashboard.html" class="flex items-center">
+          <img src="images/logo.png" alt="FootwearHub logo" class="h-10 w-10 mr-2">
+          <span class="text-xl font-bold text-gray-800">FootwearHub</span>
+        </a>
+        <div class="hidden md:flex items-center space-x-5">
+          <a href="dashboard.html" class="text-gray-700 hover:text-blue-600">Home</a>
+          <a href="products.html" class="text-gray-700 hover:text-blue-600">Products</a>
+          <a href="orders.html" class="text-gray-700 hover:text-blue-600">Orders</a>
+          <a href="customers.html" class="text-blue-600 font-semibold">Customers</a>
+          <a href="reports.html" class="text-gray-700 hover:text-blue-600">Reports</a>
+
+          <a href="cart.html" class="relative text-gray-700 hover:text-blue-600">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+
+          <span id="navUsername" class="text-sm text-gray-500"></span>
+          <button onclick="logoutUser()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded">Logout</button>
+        </div>
+        <div class="md:hidden flex items-center space-x-3">
+          <a href="cart.html" class="relative text-gray-700">
+            <i class="bx bxs-cart text-2xl"></i>
+            <span class="cart-badge hidden absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+          </a>
+          <button onclick="toggleMenu()" class="text-gray-700">
+            <i class="bx bx-menu text-3xl"></i>
+          </button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+        <a href="dashboard.html" class="block py-2 text-gray-700">Home</a>
+        <a href="products.html" class="block py-2 text-gray-700">Products</a>
+        <a href="orders.html" class="block py-2 text-gray-700">Orders</a>
+        <a href="customers.html" class="block py-2 text-blue-600 font-semibold">Customers</a>
+        <a href="reports.html" class="block py-2 text-gray-700">Reports</a>
+        <button onclick="logoutUser()" class="w-full bg-red-500 text-white py-2 rounded">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+    <div class="mb-6 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-800">Customers</h1>
+        <p class="text-gray-500">All registered customers of FootwearHub.</p>
+      </div>
+      <div>
+        <input type="text" id="searchBox" oninput="showCustomers()"
+               placeholder="Search by name..."
+               class="border border-gray-300 rounded px-3 py-1 text-sm">
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 text-left text-gray-600">
+            <tr>
+              <th class="px-4 py-3">ID</th>
+              <th class="px-4 py-3">Name</th>
+              <th class="px-4 py-3">Email</th>
+              <th class="px-4 py-3">Phone</th>
+              <th class="px-4 py-3">Orders</th>
+              <th class="px-4 py-3">Joined</th>
+            </tr>
+          </thead>
+          <tbody id="customersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="bg-gray-800 text-white mt-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div>
+          <h3 class="font-bold mb-2 text-lg flex items-center gap-2">
+            <img src="images/logo.png" alt="FootwearHub logo" class="h-8 w-8"> FootwearHub
+          </h3>
+          <p class="text-gray-400">Your one-stop hub for premium footwear.</p>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Quick Links</h3>
+          <ul class="text-gray-400 space-y-1">
+            <li><a href="dashboard.html" class="hover:text-white">Home</a></li>
+            <li><a href="products.html" class="hover:text-white">Products</a></li>
+            <li><a href="orders.html" class="hover:text-white">Orders</a></li>
+            <li><a href="reports.html" class="hover:text-white">Reports</a></li>
+            <li><a href="cart.html" class="hover:text-white">My Cart</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-2">Contact</h3>
+          <p class="text-gray-400">support@footwearhub.com</p>
+          <p class="text-gray-400">+60 12-345 6789</p>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-4 pt-4 text-center text-gray-500 text-xs">
+        © 2026 FootwearHub. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/nav.js"></script>
+  <script>
+    function showCustomers() {
+      var tbody = document.getElementById("customersBody");
+      var search = document.getElementById("searchBox").value.toLowerCase();
+      var html = "";
+
+      for (var i = 0; i < customers.length; i++) {
+        var c = customers[i];
+
+        if (search !== "" && c.name.toLowerCase().indexOf(search) === -1) {
+          continue;
+        }
+
+        html += "<tr class='border-t hover:bg-gray-50'>";
+        html += "<td class='px-4 py-3 font-mono'>" + c.id + "</td>";
+        html += "<td class='px-4 py-3 font-semibold'>" + c.name + "</td>";
+        html += "<td class='px-4 py-3 text-blue-600'>" + c.email + "</td>";
+        html += "<td class='px-4 py-3'>" + c.phone + "</td>";
+        html += "<td class='px-4 py-3'><span class='px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs'>" + c.orders + " orders</span></td>";
+        html += "<td class='px-4 py-3 text-gray-500'>" + c.joined + "</td>";
+        html += "</tr>";
+      }
+
+      if (html === "") {
+        html = "<tr><td colspan='6' class='text-center text-gray-500 py-6'>No customers found.</td></tr>";
+      }
+
+      tbody.innerHTML = html;
+    }
+
+    showCustomers();
+  </script>
+
+</body>
+</html>
