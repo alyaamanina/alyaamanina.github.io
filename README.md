@@ -23,7 +23,7 @@ All libraries are loaded from CDN so there's nothing to install.
 - Shopping cart with add/remove, quantity, and localStorage so it stays after refresh
 - Orders page with status filter
 - Customers page with search
-- Reports page with 3 charts (line, doughnut, bar)
+- Reports page with 3 charts
 - Small chart on the dashboard too
 - Responsive design, works on mobile
 
@@ -74,23 +74,6 @@ Password: admin123
     └── products/
 ```
 
-## How to Run Locally
-
-Best way is to use a local server like MAMP or VS Code Live Server, because the CDN scripts need `http://` not `file://`.
-
-1. Put the project in your server's web root (e.g. MAMP `htdocs`)
-2. Start the server
-3. Open `http://localhost:8888/` in your browser
-
-Or just visit the live demo link above.
-
-## Notes
-
-- This is a front-end only project, no backend
-- Data is hardcoded in `js/data.js`
-- Cart is saved in browser `localStorage`
-- Tested on Google Chrome
-
 ## Author
 
-FootwearHub Team — 2026
+alyaamanina — 2026
